@@ -1,4 +1,5 @@
 using Game.Car;
+using Game.TapeBackground;
 using Profile;
 using Tools;
 using UnityEngine;
@@ -16,8 +17,10 @@ namespace Game
             var leftMoveDiff = new SubscriptionProperty<float>();
             var rightMoveDiff = new SubscriptionProperty<float>();
 
+            var tapeBackgroundController = new TapeBackgroundController(leftMoveDiff, rightMoveDiff);
             var carController = new CarController();
             AddController(carController);
+            AddController(tapeBackgroundController);
         }
     }
 }
