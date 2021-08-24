@@ -1,4 +1,5 @@
 using Profile;
+using Ui;
 using UnityEngine;
 
 internal sealed class MainController : BaseController
@@ -21,7 +22,7 @@ internal sealed class MainController : BaseController
         switch (state)
         {
             case GameState.Start:
-                _mainMenuController = new MainMenuController();
+                _mainMenuController = new MainMenuController(_placeForUi, _profilePlayer);
                 _gameController?.Dispose();
                 break;
             case GameState.Game:
