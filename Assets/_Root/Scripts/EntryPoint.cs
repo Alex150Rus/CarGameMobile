@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-internal class EntryPoint: MonoBehaviour
+internal sealed class EntryPoint: MonoBehaviour
 {
     [SerializeField] private Transform _placeForUI;
 
