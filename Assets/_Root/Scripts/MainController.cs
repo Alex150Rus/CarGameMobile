@@ -1,3 +1,4 @@
+using Game;
 using Profile;
 using Ui;
 using UnityEngine;
@@ -26,7 +27,7 @@ internal sealed class MainController : BaseController
                 _gameController?.Dispose();
                 break;
             case GameState.Game:
-                _gameController = new GameController();
+                _gameController = new GameController(_profilePlayer);
                 _mainMenuController?.Dispose();
                 break;
             default:
