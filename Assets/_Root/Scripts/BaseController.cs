@@ -29,7 +29,11 @@ internal abstract class BaseController : IDisposable
 
         DisposeBaseControllers();
         DisposeGameObjects();
+
+        OnDisposed();
     }
+
+    protected virtual void OnDisposed(){}
 
     private void DisposeGameObjects()
     {
