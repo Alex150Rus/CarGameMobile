@@ -1,3 +1,5 @@
+using System;
+using Datas;
 using Game.Car;
 using Game.TapeBackground;
 using Profile;
@@ -23,8 +25,24 @@ namespace Game
             // var inputGameController = new InputGameController(leftMoveDiff, rightMoveDiff, profilePlayer.CurrentCar);
             // AddController(inputGameController);
 
-            var carController = new CarController();
-            AddController(carController);
+            SetVehicleController(profilePlayer);
+            
+        }
+
+        private void SetVehicleController(ProfilePlayer profilePlayer)
+        {
+            switch (profilePlayer.CurrentVehicleType)
+            {
+                case VehicleType.Car:
+                    var carController = new CarController();
+                    AddController(carController);
+                    break;
+                case VehicleType.Boat:
+                    throw new NotImplementedException();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }
