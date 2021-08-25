@@ -12,7 +12,6 @@ internal sealed class EntryPoint: MonoBehaviour
 
     private void Awake()
     {
-        var speedCar = 15f;
         var profilePlayer = new ProfilePlayer(_data.Player, GameState.Start);
         _mainController = new MainController(_placeForUI, profilePlayer);
     }
