@@ -99,6 +99,11 @@ namespace UnityStandardAssets.CrossPlatformInput
 			UpdateVirtualAxes(m_StartPos);
 		}
 
+		public void SetStartPosition(Vector3 position)
+		{
+			m_StartPos = position;
+		}
+
 
 		public void OnPointerDown(PointerEventData data) { }
 
