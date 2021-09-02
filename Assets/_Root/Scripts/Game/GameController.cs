@@ -11,6 +11,7 @@ namespace Game
 {
     internal class GameController: BaseController
     {
+        private TapeBackgroundController _tapeBackgroundController;
         public GameController(ProfilePlayer profilePlayer)
         {
             /*
@@ -20,14 +21,13 @@ namespace Game
             var leftMoveDiff = new SubscriptionProperty<float>();
             var rightMoveDiff = new SubscriptionProperty<float>();
 
-            var tapeBackgroundController = new TapeBackgroundController(leftMoveDiff, rightMoveDiff);
-            AddController(tapeBackgroundController);
+            _tapeBackgroundController = new TapeBackgroundController(leftMoveDiff, rightMoveDiff);
+            AddController( _tapeBackgroundController);
             
             var inputGameController = new InputGameController(leftMoveDiff, rightMoveDiff, profilePlayer.CurrentCar);
             AddController(inputGameController);
 
             SetVehicleController(profilePlayer);
-            
         }
 
         private void SetVehicleController(ProfilePlayer profilePlayer)
@@ -44,6 +44,11 @@ namespace Game
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        protected override void OnDisposed()
+        {
+            _tapeBackgroundController?.Dispose();
         }
     }
 }

@@ -1,7 +1,7 @@
+using System.Linq;
 using Datas;
 using Game.Car;
 using Tools;
-using UnityEngine;
 
 namespace Profile
 {
@@ -17,7 +17,8 @@ namespace Profile
         public ProfilePlayer(PlayerData playerData)
         {
             CurrentState = new SubscriptionProperty<GameState>();
-            CurrentCar = new CarModel(playerData.Vehicles.Find(veh => veh.Type == VehicleType.Car).Speed);
+            CurrentCar = new CarModel(
+                playerData.Vehicles.Where(veh => veh.Type == playerData.CurrentVehicle).ToArray()[0].Speed);
             CurrentVehicleType = VehicleType.Car;
         }
     }

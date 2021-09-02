@@ -6,13 +6,13 @@ using UnityEngine;
 internal sealed class EntryPoint: MonoBehaviour
 {
     [SerializeField] private Transform _placeForUI;
-    [SerializeField] private Data _data;
+    [SerializeField] private PlayerData _data;
 
     private MainController _mainController;
 
     private void Awake()
     {
-        var profilePlayer = new ProfilePlayer(_data.Player, GameState.Start);
+        var profilePlayer = new ProfilePlayer(_data, GameState.Start);
         _mainController = new MainController(_placeForUI, profilePlayer);
     }
 

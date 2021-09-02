@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Datas
@@ -7,14 +6,22 @@ namespace Datas
     [CreateAssetMenu(fileName = "PlayerData", menuName = "Data/PlayerData", order = 1)]
     internal class PlayerData: ScriptableObject
     {
-        [SerializeField] private List<PlayerVehicles> _vehicles;
-        public List<PlayerVehicles> Vehicles => _vehicles;
+        [Header("CurrentVehicle"), SerializeField] private VehicleType _currentVehicle;
+        [SerializeField] private PlayerVehicles[] _vehicles;
+
+        public VehicleType CurrentVehicle;
+        public PlayerVehicles[] Vehicles => _vehicles;
     }
     
     [Serializable]
     internal struct PlayerVehicles
     {
-        public VehicleType Type;
-        public float Speed;
+        [SerializeField]
+        private VehicleType _type;
+        [SerializeField]
+        private float _speed;
+
+        public VehicleType Type => _type;
+        public float Speed => _speed;
     }
 }
