@@ -9,7 +9,7 @@ namespace Datas
         [Header("CurrentVehicle"), SerializeField] private VehicleType _currentVehicle;
         [SerializeField] private PlayerVehicles[] _vehicles;
 
-        public VehicleType CurrentVehicle;
+        public VehicleType CurrentVehicle => _currentVehicle;
         public PlayerVehicles[] Vehicles => _vehicles;
     }
     

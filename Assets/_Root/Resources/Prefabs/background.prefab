@@ -95,9 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a7bb42b83c4197a724306304b0012f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftBorder: 0
-  _rightBorder: 0
-  _relativeSpeedRate: 0
+  _leftBorder: -17.81
+  _rightBorder: 17.82
+  _relativeSpeedRate: 1
 --- !u!1 &2568450156852823711
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,9 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a7bb42b83c4197a724306304b0012f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftBorder: 0
-  _rightBorder: 0
-  _relativeSpeedRate: 0
+  _leftBorder: -20.45
+  _rightBorder: 20.46
+  _relativeSpeedRate: 0.3
 --- !u!1 &2807479611546755954
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,9 +342,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a7bb42b83c4197a724306304b0012f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftBorder: 0
-  _rightBorder: 0
-  _relativeSpeedRate: 0
+  _leftBorder: -17.81
+  _rightBorder: 17.82
+  _relativeSpeedRate: 1
 --- !u!1 &3590461184429166328
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,9 +440,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a7bb42b83c4197a724306304b0012f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftBorder: 0
-  _rightBorder: 0
-  _relativeSpeedRate: 0
+  _leftBorder: -17.81
+  _rightBorder: 17.82
+  _relativeSpeedRate: 1
 --- !u!1 &5625024096290961257
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,9 +538,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a7bb42b83c4197a724306304b0012f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftBorder: 0
-  _rightBorder: 0
-  _relativeSpeedRate: 0
+  _leftBorder: -20.45
+  _rightBorder: 20.46
+  _relativeSpeedRate: 0.3
 --- !u!1 &7039704320274304650
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,9 +636,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a7bb42b83c4197a724306304b0012f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftBorder: 0
-  _rightBorder: 0
-  _relativeSpeedRate: 0
+  _leftBorder: -20.45
+  _rightBorder: 20.46
+  _relativeSpeedRate: 0.3
 --- !u!1 &8833280361136734726
 GameObject:
   m_ObjectHideFlags: 0

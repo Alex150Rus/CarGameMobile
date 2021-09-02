@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064ac6e4379c450488140e9e739cfef1, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  _currentVehicle: 1
   _vehicles:
-  - Type: 1
-    Speed: 15
-  - Type: 2
-    Speed: 20
+  - _type: 1
+    _speed: 2
+  - _type: 0
+    _speed: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.InputLogic
 {
-    internal class InputAccelerationView : BaseInputView
+    internal class InputAccellerationView : BaseInputView
     {
         private void Start() =>
             UpdateManager.SubscribeToUpdate(Move);
