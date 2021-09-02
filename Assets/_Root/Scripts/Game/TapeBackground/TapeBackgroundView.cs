@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.TapeBackground
 {
-    internal sealed class TapeBackgroundView
+    internal sealed class TapeBackgroundView : MonoBehaviour
     {
         [SerializeField] private Background[] _backgrounds;
 
