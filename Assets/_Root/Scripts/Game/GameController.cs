@@ -1,6 +1,7 @@
 using System;
 using Datas;
 using Game.Car;
+using Game.InputLogic;
 using Game.TapeBackground;
 using Profile;
 using Tools;
@@ -22,8 +23,8 @@ namespace Game
             var tapeBackgroundController = new TapeBackgroundController(leftMoveDiff, rightMoveDiff);
             AddController(tapeBackgroundController);
             
-            // var inputGameController = new InputGameController(leftMoveDiff, rightMoveDiff, profilePlayer.CurrentCar);
-            // AddController(inputGameController);
+            var inputGameController = new InputGameController(leftMoveDiff, rightMoveDiff, profilePlayer.CurrentCar);
+            AddController(inputGameController);
 
             SetVehicleController(profilePlayer);
             
