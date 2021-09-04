@@ -1,4 +1,5 @@
 using Profile;
+using Services.Ads.UnityAds;
 using Tools;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Ui
         {
             _profilePlayer = profilePlayer;
             _view = LoadView(placeForUi);
-            _view.Init(StartGame, GoToSettings);
+            _view.Init(StartGame, GoToSettings, ShowRewardAd);
         }
 
         private MainMenuView LoadView(Transform placeForUi)
@@ -28,5 +29,6 @@ namespace Ui
 
         private void StartGame() => _profilePlayer.CurrentState.Value = GameState.Game;
         private void GoToSettings() => _profilePlayer.CurrentState.Value = GameState.Settings;
+        private void ShowRewardAd() => UnityAdsService.Instance.RewardedPlayer.Play();
     }
 }

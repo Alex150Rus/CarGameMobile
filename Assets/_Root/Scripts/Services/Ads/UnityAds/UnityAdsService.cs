@@ -52,7 +52,9 @@ namespace Services.Ads.UnityAds
 
         private IAdsPlayer CreateBanner() => new EmptyPlayer("");
 
-        private IAdsPlayer CreateRewarded() => new EmptyPlayer("");
+        private IAdsPlayer CreateRewarded() => _settings.Rewarded.Enabled
+            ? new RewardedPlayer(_settings.Rewarded.Id)
+            : (IAdsPlayer) new EmptyPlayer("");
 
         private IAdsPlayer CreateInterstitial() => _settings.Interstitial.Enabled
             ? new InterstitialPlayer(_settings.Interstitial.Id)
