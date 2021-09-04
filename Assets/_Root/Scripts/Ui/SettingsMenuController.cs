@@ -19,7 +19,7 @@ namespace Ui
 
         private SettingsMenuView LoadView(Transform placeForUi)
         {
-            GameObject prefab = ResourcesLoader.LoadPrefab(_resourcePath);
+            GameObject prefab = ResourcesLoader.LoadResource<GameObject>(_resourcePath);
             GameObject objectView = Object.Instantiate(prefab, placeForUi, false);
             AddGameObject(objectView);
 

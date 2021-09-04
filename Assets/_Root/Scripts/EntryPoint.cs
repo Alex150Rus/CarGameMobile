@@ -11,7 +11,6 @@ internal sealed class EntryPoint: MonoBehaviour
     [SerializeField] private Transform _placeForUI;
     [SerializeField] private PlayerData _data;
     [SerializeField] private AnalyticsManager _analytics;
-    [SerializeField] private UnityAdsService _unityAdsService;
 
     private MainController _mainController;
 
@@ -19,23 +18,24 @@ internal sealed class EntryPoint: MonoBehaviour
     {
         var profilePlayer = new ProfilePlayer(_data, GameState.Start);
         _mainController = new MainController(_placeForUI, profilePlayer);
+        UnityAdsService.Instance.Initialized.AddListener(Play());
         
     }
 
     private void Start()
     {
         _analytics.SendMainMenuOpened();
-        _unityAdsService.Initialized.AddListener(Play());
+       
     }
 
     private void OnDestroy()
     {
         _mainController?.Dispose();
-        _unityAdsService.Initialized.RemoveListener(Play());
+        UnityAdsService.Instance.Initialized.RemoveListener(Play());
     }
 
     private UnityAction Play()
     {
-        return _unityAdsService.InterstitialPlayer.Play;
+        return UnityAdsService.Instance.InterstitialPlayer.Play;
     }
 }

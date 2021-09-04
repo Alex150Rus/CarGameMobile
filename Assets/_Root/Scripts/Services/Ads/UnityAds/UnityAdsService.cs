@@ -1,4 +1,7 @@
+using System;
+using System.Threading;
 using Services.Ads.UnityAds.Settings;
+using Tools;
 using Tools.Logger;
 using UnityEngine;
 using UnityEngine.Advertisements;
@@ -6,13 +9,12 @@ using UnityEngine.Events;
 
 namespace Services.Ads.UnityAds
 {
-    internal class UnityAdsService: MonoBehaviour, IAdsService, IUnityAdsInitializationListener
+    internal class UnityAdsService: IAdsService, IUnityAdsInitializationListener
     {
-        [Header("Components")] [SerializeField]
-        private UnityAdsSettings _settings;
-        
-        [field: Header("Events")]
-        [field: SerializeField] public UnityEvent Initialized { get; private set; }
+       private UnityAdsSettings _settings;
+       private readonly ResourcePath _settingsPath = new ResourcePath("Settings/UnityAdsSettings");
+
+       public UnityEvent Initialized { get; private set; } = new UnityEvent();
 
         private DebugLogger _logger;
         
@@ -20,12 +22,25 @@ namespace Services.Ads.UnityAds
         public IAdsPlayer RewardedPlayer { get; private set; }
         public IAdsPlayer BannerPlayer { get; private set; }
 
-        private void Awake()
+        #region Singlton pattern
+
+        private static readonly Lazy<UnityAdsService> _instance = 
+            new Lazy<UnityAdsService>(() => new UnityAdsService(), LazyThreadSafetyMode.ExecutionAndPublication);
+        
+        public static UnityAdsService Instance => _instance.Value;
+        
+        private UnityAdsService()
         {
+            LoadSettings();
             InitializeAds();
             InitializePlayers();
             _logger = new DebugLogger();
         }
+
+        #endregion Pattern Singltone 
+       
+        private void LoadSettings() =>
+            _settings = ResourcesLoader.LoadResource<UnityAdsSettings>(_settingsPath);
 
         private void InitializePlayers()
         {
