@@ -37,7 +37,7 @@ namespace Services.Ads.UnityAds
             _logger = new DebugLogger();
         }
 
-        #endregion Pattern Singltone 
+        #endregion
        
         private void LoadSettings() =>
             _settings = ResourcesLoader.LoadResource<UnityAdsSettings>(_settingsPath);

@@ -10,7 +10,6 @@ internal sealed class EntryPoint: MonoBehaviour
 {
     [SerializeField] private Transform _placeForUI;
     [SerializeField] private PlayerData _data;
-    [SerializeField] private AnalyticsManager _analytics;
 
     private MainController _mainController;
 
@@ -24,8 +23,7 @@ internal sealed class EntryPoint: MonoBehaviour
 
     private void Start()
     {
-        _analytics.SendMainMenuOpened();
-       
+        AnalyticsManager.Instance.SendMainMenuOpened();
     }
 
     private void OnDestroy()
