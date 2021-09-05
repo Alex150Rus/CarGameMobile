@@ -77,7 +77,6 @@ namespace Services.Shop
             _controller = controller;
             _extensionProvider = extensions;
             _isInitialized = true;
-
         }
 
         public string GetCost(string productID)

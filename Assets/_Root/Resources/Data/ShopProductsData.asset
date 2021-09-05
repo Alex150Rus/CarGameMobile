@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ShopProductsData
   m_EditorClassIdentifier: 
   <ShopProducts>k__BackingField:
-  - Id: removeAds
+  - Id: remove_ads
     CurrentProductType: 0
