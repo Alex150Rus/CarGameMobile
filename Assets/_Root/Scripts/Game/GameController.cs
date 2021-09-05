@@ -4,8 +4,8 @@ using Game.Car;
 using Game.InputLogic;
 using Game.TapeBackground;
 using Profile;
+using Services.Analytics;
 using Tools;
-using UnityEngine;
 
 namespace Game
 {
@@ -14,6 +14,7 @@ namespace Game
         private TapeBackgroundController _tapeBackgroundController;
         public GameController(ProfilePlayer profilePlayer)
         {
+            AnalyticsManager.Instance.SendGameStarted();
             /*
              * the car is moving to the left and to the right and our sub systems (paralax scrolling, input 
              * and car moving) will be subscribed to change in position;
