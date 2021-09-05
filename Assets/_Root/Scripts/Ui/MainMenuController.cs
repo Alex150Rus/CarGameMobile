@@ -32,6 +32,9 @@ namespace Ui
         private void GoToSettings() => _profilePlayer.CurrentState.Value = GameState.Settings;
         private void ShowRewardAd() => UnityAdsService.Instance.RewardedPlayer.Play();
 
-        private void RemoveAds() => _profilePlayer.Shop.Buy(ProductNamesManager.PRODUCT_REMOVE_ADS);
+        private void RemoveAds()
+        {
+            _profilePlayer.Shop.Buy(ProductNamesManager.PRODUCT_REMOVE_ADS);
+        }
     }
 }

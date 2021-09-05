@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Services.Analytics;
+using Services.Analytics.UnityAnalytics;
 using Tools;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -18,7 +20,7 @@ namespace Services.Shop
 
         public IReadOnlySubscriptionAction OnSuccessPurchase => _onSuccessPurchase;
         public IReadOnlySubscriptionAction OnFailedPurchase => _onFailedPurchase;
-        
+
         public ShopTools(ShopProduct[] products)
         {
             _onSuccessPurchase = new SubscriptionAction();
@@ -64,14 +66,17 @@ namespace Services.Shop
 #endif
             
             _onSuccessPurchase.Invoke();
+            if (validPurchase)
+                OnPurchase(purchaseEvent);
+                
             return PurchaseProcessingResult.Complete;
         }
-        
+
         public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
         {
             _onFailedPurchase.Invoke();
         }
-        
+
         public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
         {
             _controller = controller;
@@ -110,5 +115,15 @@ namespace Services.Shop
           
         }
 
+        private void OnPurchase(PurchaseEventArgs purchaseEvent)
+        {
+            UnityEngine.Analytics.Analytics.Transaction(
+                purchaseEvent.purchasedProduct.definition.id,
+                purchaseEvent.purchasedProduct.metadata.localizedPrice,
+                purchaseEvent.purchasedProduct.metadata.isoCurrencyCode,
+                purchaseEvent.purchasedProduct.receipt,
+                null
+                );
+        }
     }
 }
