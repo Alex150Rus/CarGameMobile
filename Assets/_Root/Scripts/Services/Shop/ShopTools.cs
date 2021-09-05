@@ -31,6 +31,8 @@ namespace Services.Shop
             {
                 builder.AddProduct(product.Id, product.CurrentProductType);
             }
+            
+            UnityPurchasing.Initialize (this, builder);
         }
 
         public void Buy(string id)
@@ -48,6 +50,7 @@ namespace Services.Shop
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
         {
             bool validPurchase = false;
+            
 #if UNITY_ANDROID || UNITY_IOS
             CrossPlatformValidator validator = new CrossPlatformValidator(GooglePlayTangle.Data(),
                 AppleTangle.Data(), Application.identifier);
