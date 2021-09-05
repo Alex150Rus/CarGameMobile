@@ -1,6 +1,6 @@
-namespace _Root.Scripts.Shed.UpgradeHandlers
+namespace Shed.UpgradeHandlers
 {
-    public interface IUpgradeableTransport
+    internal interface IUpgradeableTransport
     {
         float Speed { get; set; }
 

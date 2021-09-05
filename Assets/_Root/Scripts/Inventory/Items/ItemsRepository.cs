@@ -5,12 +5,12 @@ using Datas.Inventory;
 namespace Inventory.Items
 {
 
-    internal interface IItemsRepository : IDisposable
+    internal interface IItemsRepository : IRepository
     {
         IReadOnlyDictionary<int, IItem> Items { get;  }
     }
     
-    internal class ItemsRepository: IItemsRepository
+    internal class ItemsRepository:  IItemsRepository
     {
         private readonly Dictionary<int, IItem> _itemsMapById = new Dictionary<int, IItem>();
 

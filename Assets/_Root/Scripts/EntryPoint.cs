@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Datas;
+using Inventory;
 using Profile;
 using Services.Ads.UnityAds;
 using Services.Analytics;
@@ -11,9 +12,15 @@ using UnityEngine.Purchasing;
 
 internal sealed class EntryPoint: MonoBehaviour
 {
-    [SerializeField] private Transform _placeForUI;
-    [SerializeField] private PlayerData _data;
+    [Header("Configs")]
+    [SerializeField] private InventoryModelConfig _inventoryModelConfig;
     [SerializeField] private ShopProductsData _shopProducts;
+    [SerializeField] private PlayerData _data;
+    
+    [Header("Components")]
+    [SerializeField] private Transform _placeForUI;
+    
+    
 
     private MainController _mainController;
 
@@ -21,6 +28,7 @@ internal sealed class EntryPoint: MonoBehaviour
     {
         var shop = new ShopTools(_shopProducts.ShopProducts);
         var profilePlayer = new ProfilePlayer(_data, GameState.Start, shop);
+        InitializeInventoryModel(_inventoryModelConfig, profilePlayer.Inventory);
         _mainController = new MainController(_placeForUI, profilePlayer);
         UnityAdsService.Instance.Initialized.AddListener(Play());
         
@@ -31,14 +39,20 @@ internal sealed class EntryPoint: MonoBehaviour
         AnalyticsManager.Instance.SendMainMenuOpened();
     }
 
+    private UnityAction Play()
+    {
+        return UnityAdsService.Instance.InterstitialPlayer.Play;
+    }
+
+    private void InitializeInventoryModel(InventoryModelConfig inventoryModelConfig, InventoryModel inventoryModel)
+    {
+        var initializer = new InventoryInitializer(inventoryModelConfig);
+        initializer.InitializeModel(inventoryModel);
+    }
+    
     private void OnDestroy()
     {
         _mainController?.Dispose();
         UnityAdsService.Instance.Initialized.RemoveListener(Play());
-    }
-
-    private UnityAction Play()
-    {
-        return UnityAdsService.Instance.InterstitialPlayer.Play;
     }
 }

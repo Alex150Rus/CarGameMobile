@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97c1df789efc47db9671c4a3ce321ddb, type: 3}
-  m_Name: UpgradeItemConfig
+  m_Script: {fileID: 11500000, guid: ae8c947c4db7483380634d3d0cef35a0, type: 3}
+  m_Name: DuckPower
   m_EditorClassIdentifier: 
-  <ItemConfig>k__BackingField: {fileID: 11400000, guid: 33144b0cfab88d941a38b57f0513f064, type: 2}
-  <Type>k__BackingField: 1
-  <Value>k__BackingField: 1
+  <Id>k__BackingField: 1
+  <Title>k__BackingField: Duck Power
+  <Icon>k__BackingField: {fileID: 5775143000185782248, guid: a9c136f9dcfd3954fa0f3fab6260607f, type: 3}
