@@ -4,6 +4,6 @@ namespace Datas
     {
         None = 0,
         Car = 1,
-        Boat = 2,
+        HatOnWheels = 2,
     }
 }

@@ -3,6 +3,8 @@ using Datas;
 using Game.Car;
 using Game.InputLogic;
 using Game.TapeBackground;
+using Game.Transport;
+using Game.Transport.HatOnWheels;
 using Profile;
 using Services.Analytics;
 using Tools;
@@ -12,6 +14,8 @@ namespace Game
     internal class GameController: BaseController
     {
         private TapeBackgroundController _tapeBackgroundController;
+        private InputGameController _inputGameController;
+        private TransportController _transportController;
         public GameController(ProfilePlayer profilePlayer)
         {
             AnalyticsManager.Instance.SendGameStarted();
@@ -25,8 +29,8 @@ namespace Game
             _tapeBackgroundController = new TapeBackgroundController(leftMoveDiff, rightMoveDiff);
             AddController( _tapeBackgroundController);
             
-            var inputGameController = new InputGameController(leftMoveDiff, rightMoveDiff, profilePlayer.CurrentCar);
-            AddController(inputGameController);
+            _inputGameController = new InputGameController(leftMoveDiff, rightMoveDiff, profilePlayer.CurrentTransport);
+            AddController(_inputGameController);
 
             SetVehicleController(profilePlayer);
         }
@@ -36,11 +40,12 @@ namespace Game
             switch (profilePlayer.CurrentVehicleType)
             {
                 case VehicleType.Car:
-                    var carController = new CarController();
-                    AddController(carController);
+                    _transportController = new CarController();
+                    AddController(_transportController);
                     break;
-                case VehicleType.Boat:
-                    throw new NotImplementedException();
+                case VehicleType.HatOnWheels:
+                    _transportController = new HatOnWheelsController();
+                    AddController(_transportController);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -50,6 +55,8 @@ namespace Game
         protected override void OnDisposed()
         {
             _tapeBackgroundController?.Dispose();
+            _inputGameController?.Dispose();
+            _transportController?.Dispose();
         }
     }
 }

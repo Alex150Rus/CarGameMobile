@@ -1,9 +1,10 @@
+using Game.Transport;
 using Tools;
 using UnityEngine;
 
 namespace Game.Car
 {
-    internal sealed class CarController: BaseController
+    internal sealed class CarController: TransportController
     {
         private readonly ResourcePath _viewPath = new ResourcePath("Prefabs/Car");
         private readonly CarView _view;

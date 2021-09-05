@@ -1,6 +1,7 @@
 using System.Linq;
 using Datas;
 using Game.Car;
+using Game.Transport;
 using Services.Shop;
 using Tools;
 
@@ -9,7 +10,7 @@ namespace Profile
     internal sealed class ProfilePlayer
     {
         public readonly SubscriptionProperty<GameState> CurrentState;
-        public readonly CarModel CurrentCar;
+        public readonly TransportModel CurrentTransport;
         public readonly VehicleType CurrentVehicleType;
         public readonly ShopTools Shop;
 
@@ -22,9 +23,9 @@ namespace Profile
         {
             
             CurrentState = new SubscriptionProperty<GameState>();
-            CurrentCar = new CarModel(
+            CurrentTransport = new CarModel(
                 playerData.Vehicles.Where(veh => veh.Type == playerData.CurrentVehicle).ToArray()[0].Speed);
-            CurrentVehicleType = VehicleType.Car;
+            CurrentVehicleType = playerData.CurrentVehicle;
         }
     }
 }
