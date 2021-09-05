@@ -31,6 +31,7 @@ internal sealed class MainController : BaseController
             case GameState.Game:
                 _gameController = new GameController(_profilePlayer);
                 _mainMenuController?.Dispose();
+                _settingsMenuController?.Dispose();
                 break;
             case GameState.Settings:
                 _settingsMenuController = new SettingsMenuController(_placeForUi, _profilePlayer);
