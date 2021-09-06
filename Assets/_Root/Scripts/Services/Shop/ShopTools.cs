@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using Services.Analytics;
-using Services.Analytics.UnityAnalytics;
 using Tools;
 using UnityEngine;
 using UnityEngine.Purchasing;

@@ -4,7 +4,7 @@ using UnityEngine.Advertisements;
 
 namespace Services.Ads.UnityAds
 {
-    internal abstract class UnityAdsPlayer: IAdsPlayer, IUnityAdsListener
+    internal abstract class UnityAdsPlayer: IAdsPlayer, IUnityAdsListener, IDisposable
     {
         public event Action Started;
         public event Action Finished;
@@ -77,5 +77,10 @@ namespace Services.Ads.UnityAds
 
         private void Log(string message) =>
             Debug.Log($"[{GetType().Name}] [{_id}] {message}");
+
+        public void Dispose()
+        {
+            Advertisement.RemoveListener(this);
+        }
     }
 }
