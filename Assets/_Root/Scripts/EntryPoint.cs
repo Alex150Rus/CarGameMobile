@@ -48,6 +48,7 @@ internal sealed class EntryPoint: MonoBehaviour
 
     private void OnSkipped()
     {
+        Debug.Log("Skipped when started");
         AnalyticsManager.Instance.SendInterstitialAddSkipped();
         UnityAdsService.Instance.InterstitialPlayer.Skipped -= OnSkipped;
     }

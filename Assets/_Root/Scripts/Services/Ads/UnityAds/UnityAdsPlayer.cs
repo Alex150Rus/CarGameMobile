@@ -17,6 +17,7 @@ namespace Services.Ads.UnityAds
         protected UnityAdsPlayer(string id)
         {
             _id = id;
+            Advertisement.AddListener(this);
         }
         
         public void Play()
