@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Datas;
+using Datas.Shed;
 using Inventory;
 using Profile;
 using Services.Ads.UnityAds;
@@ -15,6 +16,7 @@ internal sealed class EntryPoint: MonoBehaviour
 {
     [Header("Configs")]
     [SerializeField] private InventoryModelConfig _inventoryModelConfig;
+    [SerializeField] private UpgradeItemConfigDataSource _upgradeItemConfig; 
     [SerializeField] private ShopProductsData _shopProducts;
     [SerializeField] private PlayerData _data;
     
@@ -30,7 +32,7 @@ internal sealed class EntryPoint: MonoBehaviour
         var shop = new ShopTools(_shopProducts.ShopProducts);
         var profilePlayer = new ProfilePlayer(_data, GameState.Start, shop);
         InitializeInventoryModel(_inventoryModelConfig, profilePlayer.Inventory);
-        _mainController = new MainController(_placeForUI, profilePlayer);
+        _mainController = new MainController(_placeForUI, profilePlayer, _upgradeItemConfig.ItemConfigs);
         UnityAdsService.Instance.Initialized.AddListener(Play());
         
     }

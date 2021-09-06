@@ -11,11 +11,11 @@ namespace Shed.UpgradeHandlers
 
         public IReadOnlyDictionary<int, IUpgradeTransportHandler> UpgradableItems => _upgradeHandlersMapById;
 
-        public UpgradeHandlersRepository(List<UpgradeItemConfig> upgradeItemConfigs) =>
+        public UpgradeHandlersRepository(IReadOnlyList<UpgradeItemConfig> upgradeItemConfigs) =>
             PopulateItems(ref _upgradeHandlersMapById, upgradeItemConfigs);
 
         private void PopulateItems(ref Dictionary<int, IUpgradeTransportHandler> upgradeHandlersMapByType, 
-            List<UpgradeItemConfig> upgradeItemConfigs)
+            IReadOnlyList<UpgradeItemConfig> upgradeItemConfigs)
         {
             foreach (var config in upgradeItemConfigs)
             {

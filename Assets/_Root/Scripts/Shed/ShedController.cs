@@ -26,17 +26,20 @@ namespace Shed
         private readonly ItemsRepository _upgradeItemsRepository;
         private readonly InventoryModel _inventoryModel;
         private readonly InventoryController _inventoryController;
+        private readonly Transform _placeForUi;
 
         public ShedController(
             [NotNull] InventoryModel inventoryModel,
             [NotNull] TransportModel transport, 
-            [NotNull] List<UpgradeItemConfig> upgradeItemConfigs)
+            [NotNull] IReadOnlyList<UpgradeItemConfig> upgradeItemConfigs,
+            [NotNull] Transform placeForUi)
         {
             if (upgradeItemConfigs == null)
                 throw new ArgumentNullException(nameof(upgradeItemConfigs));
             
             _transport = transport ?? throw new ArgumentNullException(nameof(transport));
             _inventoryModel = inventoryModel ?? throw new ArgumentNullException();
+            _placeForUi = placeForUi ?? throw new ArgumentNullException();
             
             _upgradeHandlersRepository = new UpgradeHandlersRepository(upgradeItemConfigs);
             AddRepository(_upgradeHandlersRepository);
@@ -45,8 +48,10 @@ namespace Shed
                 new ItemsRepository(upgradeItemConfigs.Select(value => value.ItemConfig).ToList());
             AddRepository(_upgradeItemsRepository);
             
-            _inventoryController = new InventoryController(_inventoryModel, _upgradeItemsRepository);
+            _inventoryController = new InventoryController(_inventoryModel, _upgradeItemsRepository, _placeForUi);
             AddController(_inventoryController);
+            
+            Enter();
         }
 
         public void Enter()
@@ -71,6 +76,15 @@ namespace Shed
                 if (upgradeHandlers.TryGetValue(equippedItem.Id, out var handler))
                     handler.Upgrade(upgradableTransport);
             }
+        }
+
+        protected override void OnDisposed()
+        {
+            base.OnDisposed();
+            _upgradeHandlersRepository?.Dispose();
+            _upgradeItemsRepository?.Dispose();
+            _inventoryController?.Dispose();
+            
         }
     }
 }

@@ -6,5 +6,6 @@ namespace Profile
         Start = 1,
         Game = 2,
         Settings = 3,
+        Shed = 4,
     }
 }

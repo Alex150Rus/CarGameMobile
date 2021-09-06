@@ -22,19 +22,24 @@ namespace Inventory
         private readonly IInventoryModel _inventoryModel;
         private readonly IItemsRepository _itemsRepository;
         private IInventoryView _inventoryView;
+        private Transform _placeForUi;
 
         public InventoryController(
             [NotNull] IInventoryModel inventoryModel,
-            [NotNull] IItemsRepository itemsRepository
+            [NotNull] IItemsRepository itemsRepository,
+            [NotNull] Transform placeForUi
         )
         {
             _inventoryModel = inventoryModel ?? throw new ArgumentNullException(nameof(inventoryModel));
             _itemsRepository = itemsRepository ?? throw new ArgumentNullException(nameof(itemsRepository));
+            _placeForUi = placeForUi ?? throw new ArgumentNullException();
         }
         
         public void ShowInventory(Action callback)
         {
             _inventoryView ??= LoadView();
+            _inventoryView.Display(_inventoryModel.GetEquippedItems());
+            
         }
         
 
@@ -45,7 +50,7 @@ namespace Inventory
         private IInventoryView LoadView()
         {
             GameObject prefab = ResourcesLoader.LoadResource<GameObject>(_viewPath);
-            GameObject objectView = Object.Instantiate(prefab);
+            GameObject objectView = Object.Instantiate(prefab, _placeForUi);
             AddGameObject(objectView);
             return objectView.GetComponent<IInventoryView>();
         }

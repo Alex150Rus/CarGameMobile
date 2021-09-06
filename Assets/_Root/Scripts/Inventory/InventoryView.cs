@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Inventory.Items;
 using UnityEngine;
+using Object = System.Object;
 
 namespace Inventory
 {
@@ -11,7 +12,7 @@ namespace Inventory
         event Action<IItem> Selected;
         event Action<IItem> Deselected;
 
-        void Display(List<IItem> itemInfoCollection);
+        void Display(IReadOnlyList<IItem> itemInfoCollection);
     }
 
     internal class InventoryView: MonoBehaviour, IInventoryView
@@ -19,12 +20,13 @@ namespace Inventory
         public event Action<IItem> Selected;
         public event Action<IItem> Deselected;
 
-        private List<IItem> _itemInfoCollection;
+        private IReadOnlyList<IItem> _itemInfoCollection;
         
         
-        public void Display(List<IItem> itemInfoCollection)
+        public void Display(IReadOnlyList<IItem> itemInfoCollection)
         {
            _itemInfoCollection = itemInfoCollection;
+           
         }
 
         protected void OnSelected(IItem item) => Selected?.Invoke(item);
