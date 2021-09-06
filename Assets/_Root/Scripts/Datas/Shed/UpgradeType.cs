@@ -4,5 +4,6 @@ namespace Datas.Shed
     {
         None = 0,
         Speed = 1,
+        Jump = 2,
     }
 }
