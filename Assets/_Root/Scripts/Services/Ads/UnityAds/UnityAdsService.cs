@@ -2,7 +2,6 @@ using System;
 using System.Threading;
 using Services.Ads.UnityAds.Settings;
 using Tools;
-using Tools.Logger;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.Events;
@@ -16,7 +15,6 @@ namespace Services.Ads.UnityAds
 
        public UnityEvent Initialized { get; private set; } = new UnityEvent();
 
-        private DebugLogger _logger;
         
         public UnityAdsPlayer InterstitialPlayer { get; private set; }
         public UnityAdsPlayer RewardedPlayer { get; private set; }
@@ -34,7 +32,6 @@ namespace Services.Ads.UnityAds
             LoadSettings();
             InitializeAds();
             InitializePlayers();
-            _logger = new DebugLogger();
         }
 
         #endregion
@@ -70,13 +67,13 @@ namespace Services.Ads.UnityAds
 
         public void OnInitializationComplete()
         {
-            _logger.Log("Unity Ads Initialization complete.");
+           Debug.Log("Unity Ads Initialization complete.");
            Initialized?.Invoke();
         }
 
         public void OnInitializationFailed(UnityAdsInitializationError error, string message)
         {
-            _logger.Log($"Unity Ads Initialization Filed: {error.ToString()} - {message}.");
+            Debug.Log($"Unity Ads Initialization Filed: {error.ToString()} - {message}.");
         }
     }
 }

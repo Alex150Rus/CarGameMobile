@@ -1,10 +1,6 @@
 using System;
-using System.Diagnostics;
-using Tools.Logger;
 using UnityEngine;
 using UnityEngine.Advertisements;
-using Debug = UnityEngine.Debug;
-using ILogger = Tools.Logger.ILogger;
 
 namespace Services.Ads.UnityAds
 {
@@ -17,12 +13,10 @@ namespace Services.Ads.UnityAds
         public event Action BecomeReady;
 
         protected readonly string _id;
-        protected ILogger _logger;
         
         protected UnityAdsPlayer(string id)
         {
             _id = id;
-            _logger = new DebugLogger();
         }
         
         public void Play()
@@ -81,6 +75,6 @@ namespace Services.Ads.UnityAds
         }
 
         private void Log(string message) =>
-            _logger.Log($"[{GetType().Name}] [{_id}] {message}");
+            Debug.Log($"[{GetType().Name}] [{_id}] {message}");
     }
 }

@@ -1,9 +1,6 @@
 using System;
 using System.Threading;
-using Services.Ads.UnityAds;
 using Services.Analytics.UnityAnalytics;
-using Tools.Logger;
-using UnityEngine;
 
 namespace Services.Analytics
 {
