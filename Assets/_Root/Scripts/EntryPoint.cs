@@ -5,6 +5,7 @@ using Inventory;
 using Profile;
 using Services.Ads.UnityAds;
 using Services.Analytics;
+using Services.Analytics.UnityAnalytics;
 using Services.Shop;
 using UnityEngine;
 using UnityEngine.Events;
@@ -41,7 +42,14 @@ internal sealed class EntryPoint: MonoBehaviour
 
     private UnityAction Play()
     {
+        UnityAdsService.Instance.InterstitialPlayer.Skipped += OnSkipped;
         return UnityAdsService.Instance.InterstitialPlayer.Play;
+    }
+
+    private void OnSkipped()
+    {
+        AnalyticsManager.Instance.SendInterstitialAddSkipped();
+        UnityAdsService.Instance.InterstitialPlayer.Skipped -= OnSkipped;
     }
 
     private void InitializeInventoryModel(InventoryModelConfig inventoryModelConfig, InventoryModel inventoryModel)

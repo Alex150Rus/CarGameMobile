@@ -18,9 +18,9 @@ namespace Services.Ads.UnityAds
 
         private DebugLogger _logger;
         
-        public IAdsPlayer InterstitialPlayer { get; private set; }
-        public IAdsPlayer RewardedPlayer { get; private set; }
-        public IAdsPlayer BannerPlayer { get; private set; }
+        public UnityAdsPlayer InterstitialPlayer { get; private set; }
+        public UnityAdsPlayer RewardedPlayer { get; private set; }
+        public UnityAdsPlayer BannerPlayer { get; private set; }
 
         #region Singlton pattern
 
@@ -50,15 +50,15 @@ namespace Services.Ads.UnityAds
 
         }
 
-        private IAdsPlayer CreateBanner() => new EmptyPlayer("");
+        private UnityAdsPlayer CreateBanner() => new EmptyPlayer("");
 
-        private IAdsPlayer CreateRewarded() => _settings.Rewarded.Enabled
+        private UnityAdsPlayer CreateRewarded() => _settings.Rewarded.Enabled
             ? new RewardedPlayer(_settings.Rewarded.Id)
-            : (IAdsPlayer) new EmptyPlayer("");
+            : (UnityAdsPlayer) new EmptyPlayer("");
 
-        private IAdsPlayer CreateInterstitial() => _settings.Interstitial.Enabled
+        private UnityAdsPlayer CreateInterstitial() => _settings.Interstitial.Enabled
             ? new InterstitialPlayer(_settings.Interstitial.Id)
-            : (IAdsPlayer) new EmptyPlayer("");
+            : (UnityAdsPlayer) new EmptyPlayer("");
 
         private void InitializeAds() => Advertisement.Initialize(
             _settings.GameId, 

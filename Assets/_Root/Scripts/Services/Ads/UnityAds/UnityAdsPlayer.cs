@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Tools.Logger;
 using UnityEngine;
 using UnityEngine.Advertisements;
+using Debug = UnityEngine.Debug;
 using ILogger = Tools.Logger.ILogger;
 
 namespace Services.Ads.UnityAds

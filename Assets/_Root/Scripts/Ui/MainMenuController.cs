@@ -1,5 +1,6 @@
 using Profile;
 using Services.Ads.UnityAds;
+using Services.Analytics;
 using Services.Shop;
 using Tools;
 using UnityEngine;
@@ -30,7 +31,17 @@ namespace Ui
 
         private void StartGame() => _profilePlayer.CurrentState.Value = GameState.Game;
         private void GoToSettings() => _profilePlayer.CurrentState.Value = GameState.Settings;
-        private void ShowRewardAd() => UnityAdsService.Instance.RewardedPlayer.Play();
+        private void ShowRewardAd()
+        {
+            UnityAdsService.Instance.RewardedPlayer.Skipped += OnRewardedAddSkipped;
+            UnityAdsService.Instance.RewardedPlayer.Play();
+        }
+
+        private void OnRewardedAddSkipped()
+        {
+            AnalyticsManager.Instance.SendRewardedAddSkipped();
+            UnityAdsService.Instance.RewardedPlayer.Skipped -= OnRewardedAddSkipped;
+        }
 
         private void RemoveAds()
         {

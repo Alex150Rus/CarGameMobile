@@ -33,6 +33,8 @@ namespace Services.Analytics
             };
         }
 
+        public void SendInterstitialAddSkipped() => SendEvent("InterstitialAddSkipped");
+        public void SendRewardedAddSkipped() => SendEvent("RewardedAddSlipped");
         public void SendMainMenuOpened() => SendEvent("MainMenuOpened");
         public void SendGameStarted() => SendEvent("GameStarted");
 
