@@ -18,10 +18,10 @@ namespace Datas
     {
         [SerializeField]
         private VehicleType _type;
-        [SerializeField]
-        private float _speed;
+        [field: SerializeField] public float Speed { get; private set; }
+        [field: SerializeField] public float JumpHeight { get; private set; }
 
         public VehicleType Type => _type;
-        public float Speed => _speed;
+        
     }
 }

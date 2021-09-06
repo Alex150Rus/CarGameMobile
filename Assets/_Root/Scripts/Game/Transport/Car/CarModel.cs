@@ -5,7 +5,7 @@ namespace Game.Car
 {
     internal class CarModel: TransportModel
     {
-        public CarModel(float speed, VehicleType type) : base(speed, type)
+        public CarModel(float speed, float jumpHeight, VehicleType type) : base(speed, jumpHeight, type)
         {
             
         }

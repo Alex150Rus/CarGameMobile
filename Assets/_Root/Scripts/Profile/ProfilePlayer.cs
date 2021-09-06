@@ -25,10 +25,9 @@ namespace Profile
         public ProfilePlayer(PlayerData playerData)
         {
             CurrentState = new SubscriptionProperty<GameState>();
-            CurrentTransport = new CarModel(
-                playerData.Vehicles.Where(veh => veh.Type == playerData.CurrentVehicle).ToArray()[0].Speed,
-                playerData.CurrentVehicle
-            );
+            var vehicle =  
+                playerData.Vehicles.Where(veh => veh.Type == playerData.CurrentVehicle).ToArray()[0];
+            CurrentTransport = new CarModel(vehicle.Speed, vehicle.JumpHeight, playerData.CurrentVehicle);
             CurrentVehicleType = playerData.CurrentVehicle;
             Inventory = new InventoryModel();
         }

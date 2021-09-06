@@ -15,6 +15,8 @@ MonoBehaviour:
   _currentVehicle: 2
   _vehicles:
   - _type: 1
-    _speed: 1
+    <Speed>k__BackingField: 1
+    <JumpHeight>k__BackingField: 1
   - _type: 2
-    _speed: 2
+    <Speed>k__BackingField: 1.2
+    <JumpHeight>k__BackingField: 1.2
