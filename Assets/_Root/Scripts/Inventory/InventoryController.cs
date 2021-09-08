@@ -2,6 +2,7 @@ using System;
 using Game.TapeBackground;
 using Inventory.Items;
 using JetBrains.Annotations;
+using Profile;
 using Tools;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -20,18 +21,20 @@ namespace Inventory
         private readonly ResourcePath _viewPath = new ResourcePath("Prefabs/Inventory/Inventory");
         
         private readonly IInventoryModel _inventoryModel;
+        private readonly ProfilePlayer _profilePlayer;
         private readonly IItemsRepository _itemsRepository;
         private IInventoryView _inventoryView;
         private Transform _placeForUi;
         private ItemViewController _itemViewController;
 
         public InventoryController(
-            [NotNull] IInventoryModel inventoryModel,
+            [NotNull] ProfilePlayer profilePlayer,
             [NotNull] IItemsRepository itemsRepository,
             [NotNull] Transform placeForUi
         )
         {
-            _inventoryModel = inventoryModel ?? throw new ArgumentNullException(nameof(inventoryModel));
+            _profilePlayer = profilePlayer ?? throw new ArgumentNullException(nameof(_profilePlayer));
+            _inventoryModel = profilePlayer.Inventory ?? throw new ArgumentNullException(nameof(_inventoryModel));
             _itemsRepository = itemsRepository ?? throw new ArgumentNullException(nameof(itemsRepository));
             _placeForUi = placeForUi ?? throw new ArgumentNullException();
 
@@ -51,6 +54,7 @@ namespace Inventory
         public void HideInventory()
         {
             _inventoryView.Close();
+            _profilePlayer.CurrentState.Value = _profilePlayer.CurrentState.PreviousValue;
         }
         
         private IInventoryView LoadView()

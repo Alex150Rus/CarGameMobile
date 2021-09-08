@@ -45,12 +45,12 @@ internal sealed class MainController : BaseController
                 _settingsMenuController = new SettingsMenuController(_placeForUi, _profilePlayer);
                 break;
             case GameState.Shed:
+                DisposeAllControllers();
                 if(_shedController == null)
-                    _shedController = new ShedController(_profilePlayer.Inventory, _profilePlayer.CurrentTransport,
+                    _shedController = new ShedController(_profilePlayer,
                     _upgradeItemConfig, _placeForUi);
                 else
                 {
-                    //отключить все ui
                     _shedController.Enter();
                 }
                 break;
