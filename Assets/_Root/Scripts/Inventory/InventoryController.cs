@@ -36,6 +36,7 @@ namespace Inventory
             _placeForUi = placeForUi ?? throw new ArgumentNullException();
 
             _inventoryView = LoadView();
+            _inventoryView.Init(HideInventory);
             _itemViewController = new ItemViewController(_inventoryView.GetTransform(),
                 _inventoryModel.GetEquippedItems());
             AddController(_itemViewController);
@@ -43,12 +44,13 @@ namespace Inventory
         
         public void ShowInventory(Action callback)
         {
-            _inventoryView.Display(_inventoryModel.GetEquippedItems());
+            _inventoryView.Display();
         }
         
 
         public void HideInventory()
         {
+            _inventoryView.Close();
         }
         
         private IInventoryView LoadView()

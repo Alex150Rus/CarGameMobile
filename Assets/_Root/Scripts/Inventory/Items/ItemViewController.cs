@@ -25,6 +25,8 @@ namespace Inventory.Items
             {
                 _prefab ??= ResourcesLoader.LoadResource<GameObject>(_viewPath);
                 GameObject objectView = Object.Instantiate(_prefab, _parent);
+                var itemView = objectView.GetComponent<ItemView>();
+                itemView.Init(item);
                 AddGameObject(objectView);   
             }
         }

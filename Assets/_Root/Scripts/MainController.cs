@@ -30,21 +30,29 @@ internal sealed class MainController : BaseController
 
     private void OnChangeGameState(GameState state)
     {
-        DisposeAllControllers();
         switch (state)
         {
             case GameState.Start:
+                DisposeAllControllers();
                 _mainMenuController = new MainMenuController(_placeForUi, _profilePlayer);
                 break;
             case GameState.Game:
+                DisposeAllControllers();
                 _gameController = new GameController(_profilePlayer);
                 break;
             case GameState.Settings:
+                DisposeAllControllers();
                 _settingsMenuController = new SettingsMenuController(_placeForUi, _profilePlayer);
                 break;
             case GameState.Shed:
-                _shedController = new ShedController(_profilePlayer.Inventory, _profilePlayer.CurrentTransport,
-                _upgradeItemConfig, _placeForUi);
+                if(_shedController == null)
+                    _shedController = new ShedController(_profilePlayer.Inventory, _profilePlayer.CurrentTransport,
+                    _upgradeItemConfig, _placeForUi);
+                else
+                {
+                    //отключить все ui
+                    _shedController.Enter();
+                }
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(GameState));
@@ -57,12 +65,12 @@ internal sealed class MainController : BaseController
         _mainMenuController?.Dispose();
         _gameController?.Dispose();
         _settingsMenuController?.Dispose();
-        _shedController?.Dispose();
     }
 
     protected override void OnDisposed()
     {
         DisposeAllControllers();
+        _shedController?.Dispose();
         _profilePlayer.CurrentState.UnSubscribeOnChange(OnChangeGameState);
     }
 }

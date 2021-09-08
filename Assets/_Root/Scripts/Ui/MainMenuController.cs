@@ -32,7 +32,11 @@ namespace Ui
         private void StartGame() => _profilePlayer.CurrentState.Value = GameState.Game;
         private void GoToSettings() => _profilePlayer.CurrentState.Value = GameState.Settings;
 
-        private void GoToShed() => _profilePlayer.CurrentState.Value = GameState.Shed;
+        private void GoToShed()
+        {
+            _profilePlayer.CurrentState.Value = GameState.Shed;
+        }
+
         private void ShowRewardAd()
         {
             UnityAdsService.Instance.RewardedPlayer.Skipped += OnRewardedAddSkipped;
