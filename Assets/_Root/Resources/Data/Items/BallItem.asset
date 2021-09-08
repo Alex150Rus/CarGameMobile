@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae8c947c4db7483380634d3d0cef35a0, type: 3}
-  m_Name: BallPower
+  m_Name: BallItem
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 3
-  <Title>k__BackingField: Ball Power
+  <Title>k__BackingField: Ball
   <Icon>k__BackingField: {fileID: 21300000, guid: 7931262bee02b4179ab843cecd12cb07, type: 3}
+  <PrefabPath>k__BackingField: 

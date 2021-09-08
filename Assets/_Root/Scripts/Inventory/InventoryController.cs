@@ -17,12 +17,13 @@ namespace Inventory
     
     internal class InventoryController: BaseController, IInventoryController
     {
-        private readonly ResourcePath _viewPath = new ResourcePath("Prefabs/Inventory");
+        private readonly ResourcePath _viewPath = new ResourcePath("Prefabs/Inventory/Inventory");
         
         private readonly IInventoryModel _inventoryModel;
         private readonly IItemsRepository _itemsRepository;
         private IInventoryView _inventoryView;
         private Transform _placeForUi;
+        private ItemViewController _itemViewController;
 
         public InventoryController(
             [NotNull] IInventoryModel inventoryModel,
@@ -33,13 +34,16 @@ namespace Inventory
             _inventoryModel = inventoryModel ?? throw new ArgumentNullException(nameof(inventoryModel));
             _itemsRepository = itemsRepository ?? throw new ArgumentNullException(nameof(itemsRepository));
             _placeForUi = placeForUi ?? throw new ArgumentNullException();
+
+            _inventoryView = LoadView();
+            _itemViewController = new ItemViewController(_inventoryView.GetTransform(),
+                _inventoryModel.GetEquippedItems());
+            AddController(_itemViewController);
         }
         
         public void ShowInventory(Action callback)
         {
-            _inventoryView ??= LoadView();
             _inventoryView.Display(_inventoryModel.GetEquippedItems());
-            
         }
         
 
@@ -53,6 +57,12 @@ namespace Inventory
             GameObject objectView = Object.Instantiate(prefab, _placeForUi);
             AddGameObject(objectView);
             return objectView.GetComponent<IInventoryView>();
+        }
+
+        protected override void OnDisposed()
+        {
+            base.OnDisposed();
+            _itemViewController?.Dispose();
         }
     }
 }
