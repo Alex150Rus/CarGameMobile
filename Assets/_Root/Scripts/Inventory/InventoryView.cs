@@ -28,15 +28,12 @@ namespace Inventory
     {
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private Transform _grid;
-        [SerializeField] private Button _buttonClose;
         public event Action<IItem> Selected;
         public event Action<IItem> Deselected;
 
         private IReadOnlyList<IItem> _itemInfoCollection;
 
-        private UnityAction _closeInventory;
-        
-        
+
         public void Display()
         {
             ToggleCanvasGroupVisibility(true);
@@ -56,8 +53,7 @@ namespace Inventory
 
         public void Init(UnityAction closeInventory)
         {
-            _closeInventory = closeInventory;
-            _buttonClose.onClick.AddListener(_closeInventory);
+           
         }
 
         public Transform GetTransform() => _grid;
@@ -67,7 +63,7 @@ namespace Inventory
 
         private void OnDestroy()
         {
-            _buttonClose.onClick.RemoveListener(_closeInventory);
+
         }
     }
 }

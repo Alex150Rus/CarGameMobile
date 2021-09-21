@@ -340,8 +340,6 @@ MonoBehaviour:
   _upgradeItemConfig: {fileID: 11400000, guid: 1e69108425bb9754195abd6b5f845eab, type: 2}
   _data: {fileID: 11400000, guid: ef408497272b0bc4cb4df0d9786e2ea4, type: 2}
   _placeForUI: {fileID: 355039080}
-  _analytics: {fileID: 1748283412}
-  _ads: {fileID: 0}
 --- !u!4 &852705294
 Transform:
   m_ObjectHideFlags: 0
@@ -494,7 +492,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
