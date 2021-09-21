@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064ac6e4379c450488140e9e739cfef1, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  _currentVehicle: 1
+  _currentVehicle: 2
   _vehicles:
   - _type: 1
-    _speed: 2
-  - _type: 0
-    _speed: 0
+    <Speed>k__BackingField: 1
+    <JumpHeight>k__BackingField: 1
+  - _type: 2
+    <Speed>k__BackingField: 1.2
+    <JumpHeight>k__BackingField: 1.2

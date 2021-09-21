@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 internal abstract class BaseController : IDisposable
 {
-    private List<BaseController> _baseControllers;
+    protected List<BaseController> _baseControllers;
     private List<GameObject> _gameObjects;
 
     private bool _isDisposed;

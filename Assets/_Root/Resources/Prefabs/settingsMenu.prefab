@@ -313,6 +313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2585483245401041281}
   - component: {fileID: 6118224179206621410}
+  - component: {fileID: 8259708134785923306}
   m_Layer: 5
   m_Name: settingsMenu
   m_TagString: Untagged
@@ -353,3 +354,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonBack: {fileID: 7509395697894817960}
+--- !u!225 &8259708134785923306
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8782768872855633298}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

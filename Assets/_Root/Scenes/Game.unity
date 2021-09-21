@@ -302,10 +302,10 @@ RectTransform:
   m_Father: {fileID: 1214780544}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &852705292
 GameObject:
@@ -336,9 +336,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ae0b0a29e64d0f8a5022b90c107b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _placeForUI: {fileID: 355039080}
-  _data: {fileID: 11400000, guid: ef408497272b0bc4cb4df0d9786e2ea4, type: 2}
+  _inventoryModelConfig: {fileID: 11400000, guid: c71a8ed594cd4224f9633781e67ac8db, type: 2}
+  _upgradeItemConfig: {fileID: 11400000, guid: 1e69108425bb9754195abd6b5f845eab, type: 2}
   _shopProducts: {fileID: 11400000, guid: c3001e302f71cb7418ca7daa55839d03, type: 2}
+  _data: {fileID: 11400000, guid: ef408497272b0bc4cb4df0d9786e2ea4, type: 2}
+  _placeForUI: {fileID: 355039080}
 --- !u!4 &852705294
 Transform:
   m_ObjectHideFlags: 0

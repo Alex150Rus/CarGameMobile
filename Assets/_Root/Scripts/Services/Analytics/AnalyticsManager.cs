@@ -1,9 +1,6 @@
 using System;
 using System.Threading;
-using Services.Ads.UnityAds;
 using Services.Analytics.UnityAnalytics;
-using Tools.Logger;
-using UnityEngine;
 
 namespace Services.Analytics
 {
@@ -33,6 +30,8 @@ namespace Services.Analytics
             };
         }
 
+        public void SendInterstitialAddSkipped() => SendEvent("InterstitialAddSkipped");
+        public void SendRewardedAddSkipped() => SendEvent("RewardedAddSlipped");
         public void SendMainMenuOpened() => SendEvent("MainMenuOpened");
         public void SendGameStarted() => SendEvent("GameStarted");
 

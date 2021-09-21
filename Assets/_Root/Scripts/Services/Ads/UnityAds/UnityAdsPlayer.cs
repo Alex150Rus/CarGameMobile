@@ -1,13 +1,10 @@
 using System;
-using System.Diagnostics;
-using Tools.Logger;
 using UnityEngine;
 using UnityEngine.Advertisements;
-using ILogger = Tools.Logger.ILogger;
 
 namespace Services.Ads.UnityAds
 {
-    internal abstract class UnityAdsPlayer: IAdsPlayer, IUnityAdsListener
+    internal abstract class UnityAdsPlayer: IAdsPlayer, IUnityAdsListener, IDisposable
     {
         public event Action Started;
         public event Action Finished;
@@ -16,12 +13,11 @@ namespace Services.Ads.UnityAds
         public event Action BecomeReady;
 
         protected readonly string _id;
-        protected ILogger _logger;
         
         protected UnityAdsPlayer(string id)
         {
             _id = id;
-            _logger = new DebugLogger();
+            Advertisement.AddListener(this);
         }
         
         public void Play()
@@ -80,6 +76,11 @@ namespace Services.Ads.UnityAds
         }
 
         private void Log(string message) =>
-            _logger.Log($"[{GetType().Name}] [{_id}] {message}");
+            Debug.Log($"[{GetType().Name}] [{_id}] {message}");
+
+        public void Dispose()
+        {
+            Advertisement.RemoveListener(this);
+        }
     }
 }
