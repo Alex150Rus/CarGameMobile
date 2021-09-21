@@ -20,7 +20,7 @@ namespace Game.InputLogic
 
         private BaseInputView LoadView()
         {
-            GameObject prefab = ResourcesLoader.LoadPrefab(_resourcePath);
+            GameObject prefab = ResourcesLoader.LoadResource<GameObject>(_resourcePath);
             GameObject objectView = Object.Instantiate(prefab);
             AddGameObject(objectView);
 

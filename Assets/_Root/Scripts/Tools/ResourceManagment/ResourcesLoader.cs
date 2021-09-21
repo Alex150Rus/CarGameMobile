@@ -4,10 +4,7 @@ namespace Tools
 {
     internal static class ResourcesLoader
     {
-        public static Sprite LoadSprite(ResourcePath path) =>
-            Resources.Load<Sprite>(path.PathResource);
-
-        public static GameObject LoadPrefab(ResourcePath path) =>
-            Resources.Load<GameObject>(path.PathResource);
+        public static T LoadResource<T>(ResourcePath path) where T : Object =>
+            Resources.Load<T>(path.PathResource);
     }
 }

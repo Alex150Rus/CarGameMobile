@@ -17,7 +17,7 @@ namespace Game.Car
 
         private CarView LoadView()
         {
-            GameObject prefab = ResourcesLoader.LoadPrefab(_viewPath);
+            GameObject prefab = ResourcesLoader.LoadResource<GameObject>(_viewPath);
             GameObject objectView = Object.Instantiate(prefab);
             AddGameObject(objectView);
             return objectView.GetComponent<CarView>();
