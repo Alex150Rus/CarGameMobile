@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine.Purchasing;
 
 namespace Services.Analytics
 {
@@ -6,5 +7,7 @@ namespace Services.Analytics
     {
         void SendEvent(string eventName);
         void SendEvent(string eventName, Dictionary<string, object> eventData);
+
+        void SendTransaction(PurchaseEventArgs purchaseEvent);
     }
 }

@@ -30,13 +30,8 @@ namespace Services.Analytics
 
         public void SendTransactionInfo(PurchaseEventArgs purchaseEvent)
         {
-            UnityEngine.Analytics.Analytics.Transaction(
-                purchaseEvent.purchasedProduct.definition.id,
-                purchaseEvent.purchasedProduct.metadata.localizedPrice,
-                purchaseEvent.purchasedProduct.metadata.isoCurrencyCode,
-                purchaseEvent.purchasedProduct.receipt,
-                null
-            );
+            for (int i = 0; i < _services.Length; i++)
+                _services[i].SendTransaction(purchaseEvent);
         }
 
         private void SendEvent(string eventName)
