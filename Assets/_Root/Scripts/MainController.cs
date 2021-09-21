@@ -56,7 +56,6 @@ internal sealed class MainController : BaseController
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(GameState));
-                break;
         }
     }
 

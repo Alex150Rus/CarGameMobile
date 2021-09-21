@@ -1,4 +1,5 @@
 using System;
+using Datas;
 using Tools;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -6,25 +7,27 @@ using UnityEngine.Purchasing.Security;
 
 namespace Services.Shop
 {
-    internal class ShopTools: IShop, IStoreListener
+    internal class ShopTools: MonoBehaviour, IShop, IStoreListener
     {
+        [SerializeField] private ShopProductsData _shopProducts;
+        
         private IStoreController _controller;
         private IExtensionProvider _extensionProvider;
         private bool _isInitialized;
         
-        private readonly SubscriptionAction _onSuccessPurchase;
-        private readonly SubscriptionAction _onFailedPurchase;
+        private SubscriptionAction _onSuccessPurchase;
+        private SubscriptionAction _onFailedPurchase;
 
         public IReadOnlySubscriptionAction OnSuccessPurchase => _onSuccessPurchase;
         public IReadOnlySubscriptionAction OnFailedPurchase => _onFailedPurchase;
 
-        public ShopTools(ShopProduct[] products)
+        private void Awake()
         {
             _onSuccessPurchase = new SubscriptionAction();
             _onFailedPurchase = new SubscriptionAction();
             ConfigurationBuilder builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
-            foreach (ShopProduct product in products)
+            foreach (ShopProduct product in _shopProducts.ShopProducts)
             {
                 builder.AddProduct(product.Id, product.CurrentProductType);
             }

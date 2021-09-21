@@ -1,26 +1,18 @@
 using System;
 using System.Threading;
 using Services.Analytics.UnityAnalytics;
+using UnityEngine;
 
 namespace Services.Analytics
 {
-    internal class AnalyticsManager
+    internal class AnalyticsManager : MonoBehaviour, IAnalyticsManager
     {
         private IAnalyticsService[] _services;
         
-        #region Singlton pattern
-
-        private static readonly Lazy<AnalyticsManager> _instance = 
-            new Lazy<AnalyticsManager>(() => new AnalyticsManager(), LazyThreadSafetyMode.ExecutionAndPublication);
-        
-        public static AnalyticsManager Instance => _instance.Value;
-        
-        private AnalyticsManager()
+        private void Awake()
         {
             InitializeServices();
         }
-
-        #endregion
 
         private void InitializeServices()
         {

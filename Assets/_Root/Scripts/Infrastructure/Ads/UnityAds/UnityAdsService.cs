@@ -8,43 +8,27 @@ using UnityEngine.Events;
 
 namespace Services.Ads.UnityAds
 {
-    internal class UnityAdsService: IAdsService, IUnityAdsInitializationListener
+    internal class UnityAdsService : MonoBehaviour, IAdsService, IUnityAdsInitializationListener
     {
-       private UnityAdsSettings _settings;
-       private readonly ResourcePath _settingsPath = new ResourcePath("Settings/UnityAdsSettings");
+        [SerializeField] private UnityAdsSettings _settings;
 
-       public UnityEvent Initialized { get; private set; } = new UnityEvent();
+        public UnityEvent Initialized { get; private set; } = new UnityEvent();
 
-        
         public UnityAdsPlayer InterstitialPlayer { get; private set; }
         public UnityAdsPlayer RewardedPlayer { get; private set; }
         public UnityAdsPlayer BannerPlayer { get; private set; }
 
-        #region Singlton pattern
-
-        private static readonly Lazy<UnityAdsService> _instance = 
-            new Lazy<UnityAdsService>(() => new UnityAdsService(), LazyThreadSafetyMode.ExecutionAndPublication);
-        
-        public static UnityAdsService Instance => _instance.Value;
-        
-        private UnityAdsService()
+        private void Awake()
         {
-            LoadSettings();
             InitializeAds();
             InitializePlayers();
         }
-
-        #endregion
-       
-        private void LoadSettings() =>
-            _settings = ResourcesLoader.LoadResource<UnityAdsSettings>(_settingsPath);
 
         private void InitializePlayers()
         {
             InterstitialPlayer = CreateInterstitial();
             RewardedPlayer = CreateRewarded();
             BannerPlayer = CreateBanner();
-
         }
 
         private UnityAdsPlayer CreateBanner() => new EmptyPlayer("");
@@ -58,17 +42,17 @@ namespace Services.Ads.UnityAds
             : (UnityAdsPlayer) new EmptyPlayer("");
 
         private void InitializeAds() => Advertisement.Initialize(
-            _settings.GameId, 
+            _settings.GameId,
             _settings.TestMode,
             _settings.EnablePerPlacementMode,
             this
-            );
+        );
 
 
         public void OnInitializationComplete()
         {
-           Debug.Log("Unity Ads Initialization complete.");
-           Initialized?.Invoke();
+            Debug.Log("Unity Ads Initialization complete.");
+            Initialized?.Invoke();
         }
 
         public void OnInitializationFailed(UnityAdsInitializationError error, string message)

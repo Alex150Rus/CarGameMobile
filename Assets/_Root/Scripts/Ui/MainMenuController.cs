@@ -39,19 +39,19 @@ namespace Ui
 
         private void ShowRewardAd()
         {
-            UnityAdsService.Instance.RewardedPlayer.Skipped += OnRewardedAddSkipped;
-            UnityAdsService.Instance.RewardedPlayer.Play();
+            Infrastructure.Services.Ads.RewardedPlayer.Skipped += OnRewardedAddSkipped;
+            Infrastructure.Services.Ads.RewardedPlayer.Play();
         }
 
         private void OnRewardedAddSkipped()
         {
-            AnalyticsManager.Instance.SendRewardedAddSkipped();
-            UnityAdsService.Instance.RewardedPlayer.Skipped -= OnRewardedAddSkipped;
+            Infrastructure.Services.Analytics.SendRewardedAddSkipped();
+            Infrastructure.Services.Ads.RewardedPlayer.Skipped -= OnRewardedAddSkipped;
         }
 
         private void RemoveAds()
         {
-            _profilePlayer.Shop.Buy(ProductNamesManager.PRODUCT_REMOVE_ADS);
+            Infrastructure.Services.Shop.Buy(ProductNamesManager.PRODUCT_REMOVE_ADS);
         }
     }
 }
