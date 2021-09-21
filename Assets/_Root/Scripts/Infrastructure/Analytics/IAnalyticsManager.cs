@@ -1,3 +1,5 @@
+using UnityEngine.Purchasing;
+
 namespace Services.Analytics
 {
     internal interface IAnalyticsManager
@@ -6,5 +8,6 @@ namespace Services.Analytics
         public void SendRewardedAddSkipped();
         public void SendMainMenuOpened();
         public void SendGameStarted();
+        public void SendTransactionInfo(PurchaseEventArgs purchaseEvent);
     }
 }

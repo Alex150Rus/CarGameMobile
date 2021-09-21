@@ -120,13 +120,7 @@ namespace Services.Shop
 
         private void OnPurchase(PurchaseEventArgs purchaseEvent)
         {
-            UnityEngine.Analytics.Analytics.Transaction(
-                purchaseEvent.purchasedProduct.definition.id,
-                purchaseEvent.purchasedProduct.metadata.localizedPrice,
-                purchaseEvent.purchasedProduct.metadata.isoCurrencyCode,
-                purchaseEvent.purchasedProduct.receipt,
-                null
-                );
+            Infrastructure.Services.Analytics.SendTransactionInfo(purchaseEvent);
         }
     }
 }
