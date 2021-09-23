@@ -7,6 +7,7 @@ internal abstract class BaseController : IDisposable
 {
     protected List<BaseController> _baseControllers;
     private List<GameObject> _gameObjects;
+    private List<IRepository> _repositories;
 
     private bool _isDisposed;
 
@@ -22,6 +23,12 @@ internal abstract class BaseController : IDisposable
         _gameObjects.Add(gameObject);
     }
 
+    protected void AddRepository(IRepository repository)
+    {
+        _repositories ??= new List<IRepository>();
+        _repositories.Add(repository);
+    }
+
     public void Dispose()
     {
         if (_isDisposed)
@@ -29,6 +36,7 @@ internal abstract class BaseController : IDisposable
 
         DisposeBaseControllers();
         DisposeGameObjects();
+        DisposeRepositories();
 
         OnDisposed();
     }
@@ -53,5 +61,15 @@ internal abstract class BaseController : IDisposable
         foreach (BaseController baseController in _baseControllers)
             baseController.Dispose();
         _baseControllers.Clear();
+    }
+
+    private void DisposeRepositories()
+    {
+        if (_repositories == null)
+            return;
+
+        foreach (IRepository _repository in _repositories)
+            _repository.Dispose();
+        _repositories.Clear();
     }
 }

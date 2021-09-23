@@ -18,7 +18,7 @@ namespace Shed
         void Exit();
     }
     
-    internal class ShedController: RepositoryBaseController, IShedController
+    internal class ShedController: BaseController, IShedController
     {
         private readonly TransportModel _transport;
 
