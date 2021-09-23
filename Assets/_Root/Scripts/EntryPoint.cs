@@ -1,5 +1,6 @@
 using Datas;
 using Datas.Shed;
+using Infrastructure.Ads.UnityAds;
 using Inventory;
 using Profile;
 using UnityEngine;
@@ -16,32 +17,24 @@ internal sealed class EntryPoint: MonoBehaviour
     [SerializeField] private Transform _placeForUI;
 
     private MainController _mainController;
+    private InterstitialAdLauncher _interstitialAdLauncher = new InterstitialAdLauncher();
 
     private void Awake()
     {
         var profilePlayer = CreateProfilePlayer(_data);
         InitializeInventoryModel(_inventoryModelConfig, profilePlayer.Inventory);
-        _mainController = new MainController(_placeForUI, profilePlayer, _upgradeItemConfig.ItemConfigs);
+        _mainController = new MainController(_placeForUI, profilePlayer, _upgradeItemConfig.ItemConfigs);        
+    }
+
+    private void Start()
+    {
         Infrastructure.Services.Analytics.SendMainMenuOpened();
-        Infrastructure.Services.Ads.Initialized.AddListener(PlayInterstitialAd());
+        _interstitialAdLauncher.Launch();
     }
 
     private ProfilePlayer CreateProfilePlayer(PlayerData playerData)
     {
         return new ProfilePlayer(_data, GameState.Start);
-    }
-
-    private UnityAction PlayInterstitialAd()
-    {
-        Infrastructure.Services.Ads.InterstitialPlayer.Skipped += OnSkippedAd;
-        return Infrastructure.Services.Ads.InterstitialPlayer.Play;
-    }
-
-    private void OnSkippedAd()
-    {
-        Debug.Log("Skipped when started");
-        Infrastructure.Services.Analytics.SendInterstitialAddSkipped();
-        Infrastructure.Services.Ads.InterstitialPlayer.Skipped -= OnSkippedAd;
     }
 
     private void InitializeInventoryModel(InventoryModelConfig inventoryModelConfig, InventoryModel inventoryModel)
@@ -51,8 +44,7 @@ internal sealed class EntryPoint: MonoBehaviour
     }
     
     private void OnDestroy()
-    {
+    {        
         _mainController?.Dispose();
-        Infrastructure.Services.Ads.Initialized.RemoveListener(PlayInterstitialAd());
     }
 }
