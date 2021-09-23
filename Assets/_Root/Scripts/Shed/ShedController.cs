@@ -8,6 +8,7 @@ using Inventory.Items;
 using JetBrains.Annotations;
 using Profile;
 using Shed.UpgradeHandlers;
+using Tools;
 using UnityEngine;
 
 namespace Shed
@@ -28,6 +29,7 @@ namespace Shed
         private readonly InventoryController _inventoryController;
         private readonly Transform _placeForUi;
         private readonly ProfilePlayer _profilePlayer;
+        private readonly ResourcePath _resourcePath = new ResourcePath("Prefabs/Shed/Shed");
 
         public ShedController(
             [NotNull] ProfilePlayer profilePlayer,
@@ -57,6 +59,7 @@ namespace Shed
 
         public void Enter()
         {
+            LoadView<ShedView>(_placeForUi, _resourcePath);
             _inventoryController.ShowInventory(Exit);
             Debug.Log($"Enter: car has speed : {_transport.Speed}");
         }
