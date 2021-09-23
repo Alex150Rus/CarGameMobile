@@ -16,14 +16,14 @@ namespace Inventory.Items
         {
             _parent = parent;
             _items = items;
+            _prefab = ResourcesLoader.LoadResource<GameObject>(_viewPath);
             LoadViews();
         }
 
         private void LoadViews()
         {
             foreach (var item in _items)
-            {
-                _prefab ??= ResourcesLoader.LoadResource<GameObject>(_viewPath);
+            {                
                 GameObject objectView = Object.Instantiate(_prefab, _parent);
                 var itemView = objectView.GetComponent<ItemView>();
                 itemView.Init(item);

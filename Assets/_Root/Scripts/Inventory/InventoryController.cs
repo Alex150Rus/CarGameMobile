@@ -16,7 +16,7 @@ namespace Inventory
     }
     
     
-    internal class InventoryController: BaseController, IInventoryController
+    internal class InventoryController: BaseViewController, IInventoryController
     {
         private readonly ResourcePath _viewPath = new ResourcePath("Prefabs/Inventory/Inventory");
         
@@ -38,7 +38,7 @@ namespace Inventory
             _itemsRepository = itemsRepository ?? throw new ArgumentNullException(nameof(itemsRepository));
             _placeForUi = placeForUi ?? throw new ArgumentNullException();
 
-            _inventoryView = LoadView();
+            _inventoryView = LoadView<IInventoryView>(_placeForUi, _viewPath);
             _inventoryView.Init(HideInventory);
             _itemViewController = new ItemViewController(_inventoryView.GetTransform(),
                 _inventoryModel.GetEquippedItems());
@@ -55,14 +55,6 @@ namespace Inventory
         {
             _inventoryView.Close();
             _profilePlayer.CurrentState.Value = _profilePlayer.CurrentState.PreviousValue;
-        }
-        
-        private IInventoryView LoadView()
-        {
-            GameObject prefab = ResourcesLoader.LoadResource<GameObject>(_viewPath);
-            GameObject objectView = Object.Instantiate(prefab, _placeForUi);
-            AddGameObject(objectView);
-            return objectView.GetComponent<IInventoryView>();
         }
 
         protected override void OnDisposed()

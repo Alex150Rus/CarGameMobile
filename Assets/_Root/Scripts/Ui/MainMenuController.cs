@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Ui
 {
-    internal sealed class MainMenuController: BaseController
+    internal sealed class MainMenuController: BaseViewController
     {
         private readonly MainMenuView _view;
         private readonly ProfilePlayer _profilePlayer;
@@ -18,17 +18,8 @@ namespace Ui
         public MainMenuController(Transform placeForUi, ProfilePlayer profilePlayer)
         {
             _profilePlayer = profilePlayer;
-            _view = LoadView(placeForUi);
+            _view = LoadView<MainMenuView>(placeForUi, _resourcePath);
             _view.Init(StartGame, GoToSettings, _rewardedPlayerLauncher.LaunchRewardAd, RemoveAds, GoToShed);
-        }
-
-        private MainMenuView LoadView(Transform placeForUi)
-        {
-            GameObject prefab = ResourcesLoader.LoadResource<GameObject>(_resourcePath);
-            GameObject objectView = Object.Instantiate(prefab, placeForUi, false);
-            AddGameObject(objectView);
-
-            return objectView.GetComponent<MainMenuView>();
         }
 
         private void StartGame() => _profilePlayer.CurrentState.Value = GameState.Game;
