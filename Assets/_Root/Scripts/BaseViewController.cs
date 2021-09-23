@@ -13,11 +13,7 @@ internal abstract class BaseViewController: BaseController
     protected T LoadView<T>(GameObject prefab = null, bool worldPositionStays = false)
     {
         prefab ??= ResourcesLoader.LoadResource<GameObject>(ResourcePath);
-        GameObject objectView;
-
-        if (Parent == null)
-            objectView = UnityEngine.Object.Instantiate(prefab);
-        else objectView = UnityEngine.Object.Instantiate(prefab, Parent, worldPositionStays);
+        GameObject objectView = UnityEngine.Object.Instantiate(prefab, Parent, worldPositionStays);
 
         AddGameObject(objectView);
         return objectView.GetComponent<T>();
