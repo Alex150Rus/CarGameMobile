@@ -8,12 +8,13 @@ namespace Ui
     {
         private readonly SettingsMenuView _view;
         private readonly ProfilePlayer _profilePlayer;
-        private readonly ResourcePath _resourcePath = new ResourcePath("Prefabs/settingsMenu");
 
         public SettingsMenuController(Transform placeForUi, ProfilePlayer profilePlayer)
         {
+            ResourcePath = new ResourcePath("Prefabs/settingsMenu");
+            Parent = placeForUi;
             _profilePlayer = profilePlayer;
-            _view = LoadView<SettingsMenuView>(placeForUi, _resourcePath);
+            _view = LoadView<SettingsMenuView>();
             _view.Init(Back);
         }
 

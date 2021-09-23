@@ -27,9 +27,7 @@ namespace Shed
         private readonly ItemsRepository _upgradeItemsRepository;
         private readonly InventoryModel _inventoryModel;
         private readonly InventoryController _inventoryController;
-        private readonly Transform _placeForUi;
         private readonly ProfilePlayer _profilePlayer;
-        private readonly ResourcePath _resourcePath = new ResourcePath("Prefabs/Shed/Shed");
 
         public ShedController(
             [NotNull] ProfilePlayer profilePlayer,
@@ -42,8 +40,9 @@ namespace Shed
             _profilePlayer = profilePlayer ?? throw new ArgumentNullException(nameof(profilePlayer));
             _transport = profilePlayer.CurrentTransport ?? throw new ArgumentNullException(nameof(_transport));
             _inventoryModel = profilePlayer.Inventory ?? throw new ArgumentNullException(nameof(_inventoryModel));
-            _placeForUi = placeForUi ?? throw new ArgumentNullException();
-            
+            Parent = placeForUi ?? throw new ArgumentNullException();
+            ResourcePath = new ResourcePath("Prefabs/Shed/Shed");
+
             _upgradeHandlersRepository = new UpgradeHandlersRepository(upgradeItemConfigs);
             AddRepository(_upgradeHandlersRepository);
 
@@ -51,7 +50,7 @@ namespace Shed
                 new ItemsRepository(upgradeItemConfigs.Select(value => value.ItemConfig).ToList());
             AddRepository(_upgradeItemsRepository);
             
-            _inventoryController = new InventoryController(_profilePlayer, _upgradeItemsRepository, _placeForUi);
+            _inventoryController = new InventoryController(_profilePlayer, _upgradeItemsRepository, Parent);
             AddController(_inventoryController);
             
             Enter();
@@ -59,7 +58,7 @@ namespace Shed
 
         public void Enter()
         {
-            LoadView<ShedView>(_placeForUi, _resourcePath);
+            LoadView<ShedView>();
             _inventoryController.ShowInventory(Exit);
             Debug.Log($"Enter: car has speed : {_transport.Speed}");
         }

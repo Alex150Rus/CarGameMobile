@@ -12,13 +12,14 @@ namespace Ui
     {
         private readonly MainMenuView _view;
         private readonly ProfilePlayer _profilePlayer;
-        private readonly ResourcePath _resourcePath = new ResourcePath("Prefabs/MainMenu");
         private readonly RewardedPlayerLauncher _rewardedPlayerLauncher = new RewardedPlayerLauncher(); 
 
         public MainMenuController(Transform placeForUi, ProfilePlayer profilePlayer)
         {
+            ResourcePath = new ResourcePath("Prefabs/MainMenu");
+            Parent = placeForUi;
             _profilePlayer = profilePlayer;
-            _view = LoadView<MainMenuView>(placeForUi, _resourcePath);
+            _view = LoadView<MainMenuView>();
             _view.Init(StartGame, GoToSettings, _rewardedPlayerLauncher.LaunchRewardAd, RemoveAds, GoToShed);
         }
 

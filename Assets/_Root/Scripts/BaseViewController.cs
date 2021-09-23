@@ -8,12 +8,18 @@ using UnityEngine;
 
 internal abstract class BaseViewController: BaseController
 {
-    protected T LoadView<T>(Transform placeForUi, ResourcePath resourcePath, bool worldPositionStays = false)
+    protected ResourcePath ResourcePath { get; set; }
+    protected Transform Parent { get; set; }
+    protected T LoadView<T>(GameObject prefab = null, bool worldPositionStays = false)
     {
-        GameObject prefab = ResourcesLoader.LoadResource<GameObject>(resourcePath);
-        GameObject objectView = UnityEngine.Object.Instantiate(prefab, placeForUi, worldPositionStays);
-        AddGameObject(objectView);
+        prefab ??= ResourcesLoader.LoadResource<GameObject>(ResourcePath);
+        GameObject objectView;
 
+        if (Parent == null)
+            objectView = UnityEngine.Object.Instantiate(prefab);
+        else objectView = UnityEngine.Object.Instantiate(prefab, Parent, worldPositionStays);
+
+        AddGameObject(objectView);
         return objectView.GetComponent<T>();
     }
 }
