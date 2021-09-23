@@ -19,11 +19,16 @@ internal sealed class EntryPoint: MonoBehaviour
 
     private void Awake()
     {
-        var profilePlayer = new ProfilePlayer(_data, GameState.Start);
+        var profilePlayer = CreateProfilePlayer(_data);
         InitializeInventoryModel(_inventoryModelConfig, profilePlayer.Inventory);
         _mainController = new MainController(_placeForUI, profilePlayer, _upgradeItemConfig.ItemConfigs);
         Infrastructure.Services.Analytics.SendMainMenuOpened();
         Infrastructure.Services.Ads.Initialized.AddListener(PlayInterstitialAd());
+    }
+
+    private ProfilePlayer CreateProfilePlayer(PlayerData playerData)
+    {
+        return new ProfilePlayer(_data, GameState.Start);
     }
 
     private UnityAction PlayInterstitialAd()

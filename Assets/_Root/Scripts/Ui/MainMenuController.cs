@@ -1,3 +1,4 @@
+using Infrastructure.Ads.UnityAds;
 using Profile;
 using Services.Ads.UnityAds;
 using Services.Analytics;
@@ -12,12 +13,13 @@ namespace Ui
         private readonly MainMenuView _view;
         private readonly ProfilePlayer _profilePlayer;
         private readonly ResourcePath _resourcePath = new ResourcePath("Prefabs/MainMenu");
+        private readonly RewardedPlayerLauncher _rewardedPlayerLauncher = new RewardedPlayerLauncher(); 
 
         public MainMenuController(Transform placeForUi, ProfilePlayer profilePlayer)
         {
             _profilePlayer = profilePlayer;
             _view = LoadView(placeForUi);
-            _view.Init(StartGame, GoToSettings, ShowRewardAd, RemoveAds, GoToShed);
+            _view.Init(StartGame, GoToSettings, _rewardedPlayerLauncher.LaunchRewardAd, RemoveAds, GoToShed);
         }
 
         private MainMenuView LoadView(Transform placeForUi)
@@ -35,18 +37,6 @@ namespace Ui
         private void GoToShed()
         {
             _profilePlayer.CurrentState.Value = GameState.Shed;
-        }
-
-        private void ShowRewardAd()
-        {
-            Infrastructure.Services.Ads.RewardedPlayer.Skipped += OnRewardedAddSkipped;
-            Infrastructure.Services.Ads.RewardedPlayer.Play();
-        }
-
-        private void OnRewardedAddSkipped()
-        {
-            Infrastructure.Services.Analytics.SendRewardedAddSkipped();
-            Infrastructure.Services.Ads.RewardedPlayer.Skipped -= OnRewardedAddSkipped;
         }
 
         private void RemoveAds()
