@@ -4,26 +4,18 @@ using UnityEngine;
 
 namespace Ui
 {
-    internal class SettingsMenuController: BaseController
+    internal class SettingsMenuController: BaseViewController
     {
         private readonly SettingsMenuView _view;
         private readonly ProfilePlayer _profilePlayer;
-        private readonly ResourcePath _resourcePath = new ResourcePath("Prefabs/settingsMenu");
 
         public SettingsMenuController(Transform placeForUi, ProfilePlayer profilePlayer)
         {
+            ResourcePath = new ResourcePath("Prefabs/settingsMenu");
+            Parent = placeForUi;
             _profilePlayer = profilePlayer;
-            _view = LoadView(placeForUi);
+            _view = LoadView<SettingsMenuView>();
             _view.Init(Back);
-        }
-
-        private SettingsMenuView LoadView(Transform placeForUi)
-        {
-            GameObject prefab = ResourcesLoader.LoadResource<GameObject>(_resourcePath);
-            GameObject objectView = Object.Instantiate(prefab, placeForUi, false);
-            AddGameObject(objectView);
-
-            return objectView.GetComponent<SettingsMenuView>();
         }
 
         private void Back() => _profilePlayer.CurrentState.Value = GameState.Start;

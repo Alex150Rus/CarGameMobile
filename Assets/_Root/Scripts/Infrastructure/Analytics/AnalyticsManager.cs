@@ -1,26 +1,19 @@
 using System;
 using System.Threading;
 using Services.Analytics.UnityAnalytics;
+using UnityEngine;
+using UnityEngine.Purchasing;
 
 namespace Services.Analytics
 {
-    internal class AnalyticsManager
+    internal class AnalyticsManager : MonoBehaviour, IAnalyticsManager
     {
         private IAnalyticsService[] _services;
-        
-        #region Singlton pattern
 
-        private static readonly Lazy<AnalyticsManager> _instance = 
-            new Lazy<AnalyticsManager>(() => new AnalyticsManager(), LazyThreadSafetyMode.ExecutionAndPublication);
-        
-        public static AnalyticsManager Instance => _instance.Value;
-        
-        private AnalyticsManager()
+        private void Awake()
         {
             InitializeServices();
         }
-
-        #endregion
 
         private void InitializeServices()
         {
@@ -35,11 +28,16 @@ namespace Services.Analytics
         public void SendMainMenuOpened() => SendEvent("MainMenuOpened");
         public void SendGameStarted() => SendEvent("GameStarted");
 
+        public void SendTransactionInfo(PurchaseEventArgs purchaseEvent)
+        {
+            for (int i = 0; i < _services.Length; i++)
+                _services[i].SendTransaction(purchaseEvent);
+        }
+
         private void SendEvent(string eventName)
         {
             for (int i = 0; i < _services.Length; i++)
                 _services[i].SendEvent(eventName);
-            
         }
     }
 }

@@ -13,13 +13,11 @@ namespace Profile
         public readonly SubscriptionProperty<GameState> CurrentState;
         public readonly TransportModel CurrentTransport;
         public readonly VehicleType CurrentVehicleType;
-        public readonly ShopTools Shop;
         public readonly InventoryModel Inventory;
 
-        public ProfilePlayer(PlayerData playerData, GameState initialState, ShopTools shop) : this(playerData)
+        public ProfilePlayer(PlayerData playerData, GameState initialState) : this(playerData)
         {
             CurrentState.Value = initialState;
-            Shop = shop;
         }
 
         public ProfilePlayer(PlayerData playerData)

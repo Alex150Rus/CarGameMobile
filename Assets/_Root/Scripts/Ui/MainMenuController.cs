@@ -1,3 +1,4 @@
+using Infrastructure.Ads.UnityAds;
 using Profile;
 using Services.Ads.UnityAds;
 using Services.Analytics;
@@ -7,26 +8,19 @@ using UnityEngine;
 
 namespace Ui
 {
-    internal sealed class MainMenuController: BaseController
+    internal sealed class MainMenuController: BaseViewController
     {
         private readonly MainMenuView _view;
         private readonly ProfilePlayer _profilePlayer;
-        private readonly ResourcePath _resourcePath = new ResourcePath("Prefabs/MainMenu");
+        private readonly RewardedPlayerLauncher _rewardedPlayerLauncher = new RewardedPlayerLauncher(); 
 
         public MainMenuController(Transform placeForUi, ProfilePlayer profilePlayer)
         {
+            ResourcePath = new ResourcePath("Prefabs/MainMenu");
+            Parent = placeForUi;
             _profilePlayer = profilePlayer;
-            _view = LoadView(placeForUi);
-            _view.Init(StartGame, GoToSettings, ShowRewardAd, RemoveAds, GoToShed);
-        }
-
-        private MainMenuView LoadView(Transform placeForUi)
-        {
-            GameObject prefab = ResourcesLoader.LoadResource<GameObject>(_resourcePath);
-            GameObject objectView = Object.Instantiate(prefab, placeForUi, false);
-            AddGameObject(objectView);
-
-            return objectView.GetComponent<MainMenuView>();
+            _view = LoadView<MainMenuView>();
+            _view.Init(StartGame, GoToSettings, _rewardedPlayerLauncher.LaunchRewardAd, RemoveAds, GoToShed);
         }
 
         private void StartGame() => _profilePlayer.CurrentState.Value = GameState.Game;
@@ -37,21 +31,9 @@ namespace Ui
             _profilePlayer.CurrentState.Value = GameState.Shed;
         }
 
-        private void ShowRewardAd()
-        {
-            UnityAdsService.Instance.RewardedPlayer.Skipped += OnRewardedAddSkipped;
-            UnityAdsService.Instance.RewardedPlayer.Play();
-        }
-
-        private void OnRewardedAddSkipped()
-        {
-            AnalyticsManager.Instance.SendRewardedAddSkipped();
-            UnityAdsService.Instance.RewardedPlayer.Skipped -= OnRewardedAddSkipped;
-        }
-
         private void RemoveAds()
         {
-            _profilePlayer.Shop.Buy(ProductNamesManager.PRODUCT_REMOVE_ADS);
+            Infrastructure.Services.Shop.Buy(ProductNamesManager.PRODUCT_REMOVE_ADS);
         }
     }
 }

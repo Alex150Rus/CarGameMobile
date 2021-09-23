@@ -1,58 +1,40 @@
-using System;
-using System.Collections.Generic;
 using Datas;
 using Datas.Shed;
+using Infrastructure.Ads.UnityAds;
 using Inventory;
 using Profile;
-using Services.Ads.UnityAds;
-using Services.Analytics;
-using Services.Analytics.UnityAnalytics;
-using Services.Shop;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Purchasing;
 
 internal sealed class EntryPoint: MonoBehaviour
 {
     [Header("Configs")]
     [SerializeField] private InventoryModelConfig _inventoryModelConfig;
     [SerializeField] private UpgradeItemConfigDataSource _upgradeItemConfig; 
-    [SerializeField] private ShopProductsData _shopProducts;
-    [SerializeField] private PlayerData _data;
+   [SerializeField] private PlayerData _data;
     
     [Header("Components")]
     [SerializeField] private Transform _placeForUI;
-    
-    
 
     private MainController _mainController;
+    private InterstitialAdLauncher _interstitialAdLauncher = new InterstitialAdLauncher();
 
     private void Awake()
     {
-        var shop = new ShopTools(_shopProducts.ShopProducts);
-        var profilePlayer = new ProfilePlayer(_data, GameState.Start, shop);
+        var profilePlayer = CreateProfilePlayer(_data);
         InitializeInventoryModel(_inventoryModelConfig, profilePlayer.Inventory);
-        _mainController = new MainController(_placeForUI, profilePlayer, _upgradeItemConfig.ItemConfigs);
-        UnityAdsService.Instance.Initialized.AddListener(Play());
-        
+        _mainController = new MainController(_placeForUI, profilePlayer, _upgradeItemConfig.ItemConfigs);        
     }
 
     private void Start()
     {
-        AnalyticsManager.Instance.SendMainMenuOpened();
+        Infrastructure.Services.Analytics.SendMainMenuOpened();
+        _interstitialAdLauncher.Launch();
     }
 
-    private UnityAction Play()
+    private ProfilePlayer CreateProfilePlayer(PlayerData playerData)
     {
-        UnityAdsService.Instance.InterstitialPlayer.Skipped += OnSkipped;
-        return UnityAdsService.Instance.InterstitialPlayer.Play;
-    }
-
-    private void OnSkipped()
-    {
-        Debug.Log("Skipped when started");
-        AnalyticsManager.Instance.SendInterstitialAddSkipped();
-        UnityAdsService.Instance.InterstitialPlayer.Skipped -= OnSkipped;
+        return new ProfilePlayer(_data, GameState.Start);
     }
 
     private void InitializeInventoryModel(InventoryModelConfig inventoryModelConfig, InventoryModel inventoryModel)
@@ -62,8 +44,7 @@ internal sealed class EntryPoint: MonoBehaviour
     }
     
     private void OnDestroy()
-    {
+    {        
         _mainController?.Dispose();
-        UnityAdsService.Instance.Initialized.RemoveListener(Play());
     }
 }

@@ -18,7 +18,7 @@ namespace Game
         private TransportController _transportController;
         public GameController(ProfilePlayer profilePlayer)
         {
-            AnalyticsManager.Instance.SendGameStarted();
+            Infrastructure.Services.Analytics.SendGameStarted();
             /*
              * the car is moving to the left and to the right and our sub systems (paralax scrolling, input 
              * and car moving) will be subscribed to change in position;
